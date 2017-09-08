@@ -154,7 +154,7 @@ def test_draw_circles_from_rectangle():
     window3.close_on_mouse_click()
 
     # ------------------------------------------------------------------
-    # TODO: 3. Implement this TEST function.
+    # DONE: 3. Implement this TEST function.
     #   It TESTS the  draw_circles_from_rectangle  function
     #   defined below.  Include at least **   3   ** tests, of which
     #      ***  at least TWO tests are on ONE window and
@@ -321,7 +321,7 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
       :type window: rg.RoseWindow
       """
     # ------------------------------------------------------------------
-    # TODO: 5. Implement and test this function.
+    # DONE: 5. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -338,34 +338,24 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
     a.attach_to(window)
     b = rectangle2
     b.attach_to(window)
-    o = a.fill_color
-    p = b.fill_color
-    h = a.get_height()
-    d = a.get_width()
+    o = a.outline_color
+    p = b.outline_color
+    h = (a.get_height())/2
+    d = (a.get_width())/2
     x1 = a.get_center().x
     y1 = a.get_center().y
-    x2 = a.get_center().x
-    y2 = a.get_center().y
-    k=((x2^2-x1^2)+(y2^2-y1^2))^0.5
-    for _ in range(n):
-        c = rg.Line(rg.Point(x1,y1),k)
-        x1 = x1 - d
-        y1 = y1 - h
-        x2 = x2 - d
-        y2 = y2 - h
-        c.outline_color=o
+    x2 = b.get_center().x
+    y2 = b.get_center().y
+    for k in range(n):
+        c = rg.Line(rg.Point(x1 - k*d,y1 + k*h),rg.Point(x2 - k*d,y2 + k*h))
+        c.thickness=3
+        if (k+2) % 2 ==0:
+            c.color=o
+        else:
+            c.color=p
         c.attach_to(window)
-        window.render()
+    window.render()
 
-    for _ in range(n):
-        x1=x1-3*(d/2)
-        y1=y1-3*(h/2)
-        x2 = x2 - 3 * (d / 2)
-        y2 = y2 - 3 * (h / 2)
-        f = rg.Line(rg.Point(x1, y1),k )
-        f.outline_color=p
-        f.attach_to(window)
-        window.render()
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
