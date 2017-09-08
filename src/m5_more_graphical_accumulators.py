@@ -9,8 +9,8 @@ Additionally, it emphasizes that you must
 before you can implement a solution to the problem in Python. 
   
 Authors: David Mutchler, Dave Fisher, Valerie Galluzzi, Amanda Stouder,
-         their colleagues and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+         their colleagues and Chengqian Lyu HERE.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import rosegraphics as rg
 
@@ -97,8 +97,19 @@ def draw_squares_from_circle(n, circle, window):
       :type circle: rg.Circle
       :type window: rg.RoseWindow
     """
+    a=circle
+    a.attach_to(window)
+    l=a.radius
+    x=a.center.x
+    y=a.center.y
+    for _ in range(n):
+        d=rg.Square(rg.Point(x,y),(2*l))
+        x = x + l
+        y = y + l
+        d.attach_to(window)
+        window.render()
     # ------------------------------------------------------------------
-    # TODO: 2. Implement and test this function.
+    # DONE: 2. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -121,6 +132,21 @@ def test_draw_circles_from_rectangle():
     print('  See the graphics windows that pop up.')
     print('--------------------------------------------------')
 
+    window3=rg.RoseWindow(1000,1000)
+    h=rg.Rectangle(rg.Point(400,250),rg.Point(440,325))
+    h.fill_color='green'
+    h.outline_thickness=5
+    h.attach_to(window3)
+    draw_circles_from_rectangle(4,5,h,window3)
+
+    v = rg.Rectangle(rg.Point(600, 400), rg.Point(500, 450))
+    v.fill_color = 'blue'
+    v.outline_thickness = 5
+    v.attach_to(window3)
+    draw_circles_from_rectangle(8, 3, v, window3)
+
+    window3.close_on_mouse_click()
+
     # ------------------------------------------------------------------
     # TODO: 3. Implement this TEST function.
     #   It TESTS the  draw_circles_from_rectangle  function
@@ -137,6 +163,27 @@ def test_draw_circles_from_rectangle():
 
 
 def draw_circles_from_rectangle(m, n, rectangle, window):
+    a=rectangle
+    a.attach_to(window)
+    o=a.fill_color
+    h=a.get_height()
+    d=a.get_width()
+    x1 = a.get_center().x-(d/2)-(h/2)
+    y1 = a.get_center().y
+    x2 = a.get_center().x
+    y2 = a.get_center().y-(d/2)-(h/2)
+    for _ in range(m):
+        c=rg.Circle(rg.Point(x1,y1),h/2)
+        x1 = x1 - h
+        c.fill_color=o
+        c.attach_to(window)
+        window.render()
+
+    for _ in range(n):
+        f=rg.Circle(rg.Point(x2,y2),d/2)
+        y2 = y2 - d
+        f.attach_to(window)
+        window.render()
     """
     What comes in:  Four arguments:
       -- Positive integers m and n.
