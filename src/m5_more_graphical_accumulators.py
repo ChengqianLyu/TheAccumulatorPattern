@@ -145,6 +145,12 @@ def test_draw_circles_from_rectangle():
     v.attach_to(window3)
     draw_circles_from_rectangle(8, 3, v, window3)
 
+    q = rg.Rectangle(rg.Point(700, 800), rg.Point(600, 700))
+    q.fill_color = 'purple'
+    q.outline_thickness = 5
+    q.attach_to(window3)
+    draw_circles_from_rectangle(2, 4, q, window3)
+
     window3.close_on_mouse_click()
 
     # ------------------------------------------------------------------
@@ -223,7 +229,7 @@ def draw_circles_from_rectangle(m, n, rectangle, window):
       :type window: rg.RoseWindow
     """
     # ------------------------------------------------------------------
-    # TODO: 4. Implement and test this function.
+    # DONE: 4. Implement and test this function.
     #          Tests have been written for you (above).
     #
     # CONSIDER using the ACCUMULATOR IN GRAPHICS pattern,
@@ -328,7 +334,38 @@ def draw_lines_from_rectangles(rectangle1, rectangle2, n, window):
     #          ** FIRST DO A CONCRETE EXAMPLE BY HAND! **
     ####################################################################
     # ------------------------------------------------------------------
+    a = rectangle1
+    a.attach_to(window)
+    b = rectangle2
+    b.attach_to(window)
+    o = a.fill_color
+    p = b.fill_color
+    h = a.get_height()
+    d = a.get_width()
+    x1 = a.get_center().x
+    y1 = a.get_center().y
+    x2 = a.get_center().x
+    y2 = a.get_center().y
+    k=((x2^2-x1^2)+(y2^2-y1^2))^0.5
+    for _ in range(n):
+        c = rg.Line(rg.Point(x1,y1),k)
+        x1 = x1 - d
+        y1 = y1 - h
+        x2 = x2 - d
+        y2 = y2 - h
+        c.outline_color=o
+        c.attach_to(window)
+        window.render()
 
+    for _ in range(n):
+        x1=x1-3*(d/2)
+        y1=y1-3*(h/2)
+        x2 = x2 - 3 * (d / 2)
+        y2 = y2 - 3 * (h / 2)
+        f = rg.Line(rg.Point(x1, y1),k )
+        f.outline_color=p
+        f.attach_to(window)
+        window.render()
 
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
